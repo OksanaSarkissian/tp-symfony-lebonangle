@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Advert Published</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2>Advert Published</h2>
+    </div>
+    <div class="content">
+        <p>Hello,</p>
+        <p>We are pleased to inform you that your advert titled "<strong>{{ advert.title }}</strong>" has been successfully published on our platform.</p>
+        <p>Description of the advert:</p>
+        <blockquote>
+            {{ advert.context }}
+        </blockquote>
+        <p>You can view your advert by clicking on the following link:</p>
+        <p><a href="{{ url('app_advert_show', {'id': advert.id}) }}">View the Advert</a></p>
+        <p>Thank you for using our service!</p>
+    </div>
+    <div class="footer">
+        <p>This is an automated message, please do not reply directly.</p>
+    </div>
+</div>
+</body>
+</html>
+

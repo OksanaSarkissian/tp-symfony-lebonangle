@@ -1,0 +1,24 @@
+# config/packages/workflow.yaml
+framework:
+    workflows:
+        advert:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Advert
+            initial_marking: Draft
+            places:
+                - Draft
+                - Rejected
+                - Published
+            transitions:
+                reject:
+                    from: [ Draft, Published ]
+                    to: Rejected
+                publish:
+                    from: Draft
+                    to:   Published

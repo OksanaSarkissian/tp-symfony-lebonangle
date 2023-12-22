@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advert{% endblock %}
+
+{% block body %}
+    <h1>Advert</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ advert.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ advert.title }}</td>
+            </tr>
+            <tr>
+                <th>Context</th>
+                <td>{{ advert.context }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ advert.author }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ advert.email }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ advert.price }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ advert.state}}</td>
+            </tr>
+            <tr>
+                <th>Pictures</th>
+                {% for picture in advert.Pictures %}
+                <td>{{ picture.imageFile}}</td>
+        {% endfor %}
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ advert.createdAt ? advert.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PublishedAt</th>
+                <td>{{ advert.publishedAt ? advert.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_advert_index') }}">back to list</a>
+{% endblock %}

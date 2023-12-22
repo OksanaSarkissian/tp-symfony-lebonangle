@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advert index{% endblock %}
+
+{% block body %}
+    <h1>Advert index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Context</th>
+                <th>Author</th>
+                <th>Email</th>
+                <th>Price</th>
+                <th>State</th>
+                <th>Pictures</th>
+                <th>CreatedAt</th>
+                <th>PublishedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for advert in adverts %}
+            <tr>
+                <td>{{ advert.id }}</td>
+                <td>{{ advert.title }}</td>
+                <td>{{ advert.context }}</td>
+                <td>{{ advert.author }}</td>
+                <td>{{ advert.email }}</td>
+                <td>{{ advert.price }}</td>
+                <td>{{ advert.state }}</td>
+                <td>{{ advert.countPics }}</td>
+                <td>{{ advert.createdAt ? advert.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ advert.publishedAt ? advert.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_advert_show', {'id': advert.id}) }}">show</a>
+                    <a href="{{ path('app_advert_publish', {'id': advert.id}) }}">publish</a>
+                    <a href="{{ path('app_advert_reject', {'id': advert.id}) }}">reject</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if previous >= 0 %}
+           <a href="{{ path('app_advert_index', { offset: previous }) }}">Previous</a>
+       {% endif %}
+       {% if next < adverts|length %}
+           <a href="{{ path('app_advert_index', { offset: next }) }}">Next</a>
+       {% endif %}
+{% endblock %}
