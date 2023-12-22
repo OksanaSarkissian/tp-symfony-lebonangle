@@ -18,9 +18,10 @@ use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+#[Route('/advert')]
 class AdvertController extends AbstractController
 {
-    #[Route('/advert', name: 'app_advert_index', methods: ['GET'])]
+    #[Route('/', name: 'app_advert_index', methods: ['GET'])]
     public function index(Request $request, Environment $twig, AdvertRepository $advertRepository): Response
      {
        $offset = max(0, $request->query->getInt('offset', 0));
@@ -33,7 +34,7 @@ class AdvertController extends AbstractController
         ]);
     }
 
-    #[Route('/advert/new', name: 'app_advert_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_advert_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $advert = (new Advert())->setCreatedAt(new \DateTimeImmutable(''));
@@ -58,7 +59,7 @@ class AdvertController extends AbstractController
         ]);
     }
 
-    #[Route('/advert/{id}', name: 'app_advert_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_advert_show', methods: ['GET'])]
     public function show(Advert $advert): Response
     {
         return $this->render('advert/show.html.twig', [
@@ -66,7 +67,7 @@ class AdvertController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/advert/publish/{id}', name: 'app_advert_publish', methods: ['GET','POST'])]
+    #[Route('/publish/{id}', name: 'app_advert_publish', methods: ['GET','POST'])]
     public function publish(Advert $advert, EntityManagerInterface $entityManager, WorkflowInterface $advertStateMachine, MailerInterface $mailer): Response
     {
         if ($advertStateMachine->can($advert, 'publish')) {
@@ -79,7 +80,7 @@ class AdvertController extends AbstractController
         return $this->redirectToRoute('app_advert_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/admin/advert/reject/{id}', name: 'app_advert_reject', methods: ['GET','POST'])]
+    #[Route('/reject/{id}', name: 'app_advert_reject', methods: ['GET','POST'])]
     public function reject(Advert $advert, EntityManagerInterface $entityManager, WorkflowInterface $advertStateMachine): Response
     {
         if ($advertStateMachine->can($advert, 'reject')) {
